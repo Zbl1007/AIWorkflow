@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "topic": "ExampleTopic",
+  "issue": "ExampleIssue",
+  "status": "active",
+  "currentIteration": "v0.1.0",
+  "iterations": [
+    {
+      "version": "v0.1.0",
+      "createdAt": "",
+      "type": "initial",
+      "summary": "初始化最小可运行 AIWorkflow 工作区。",
+      "status": "pending",
+      "detailPath": "Workspace/Topics/ExampleTopic/Issues/ExampleIssue/Resolution/Iterations/v0.1.0.md",
+      "acceptance": {
+        "modes": [
+          "aiworkflow_minimal"
+        ],
+        "requiredEvidence": [
+          "contract"
+        ],
+        "extraChecks": [],
+        "extraPostChecks": []
+      }
+    }
+  ]
+}

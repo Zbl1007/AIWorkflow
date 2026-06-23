@@ -1,0 +1,1 @@
+"""Acceptance mode declarations."""

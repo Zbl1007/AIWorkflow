@@ -1,0 +1,1 @@
+"""Reusable acceptance check atoms."""

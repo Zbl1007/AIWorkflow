@@ -1,0 +1,13 @@
+﻿{
+  "schemaVersion": "1.0",
+  "topic": "ExampleTopic",
+  "topicPath": "Workspace/Topics/ExampleTopic",
+  "issue": "ExampleIssue",
+  "issuePath": "Workspace/Topics/ExampleTopic/Issues/ExampleIssue/Issue.md",
+  "decisionPath": "Workspace/Topics/ExampleTopic/Issues/ExampleIssue/Decision.md",
+  "resolutionPath": "Workspace/Topics/ExampleTopic/Issues/ExampleIssue/Resolution/Resolution.json",
+  "currentIteration": "v0.1.0",
+  "iterationPath": "Workspace/Topics/ExampleTopic/Issues/ExampleIssue/Resolution/Iterations/v0.1.0.md",
+  "updatedAt": "",
+  "source": "TEMPLATE"
+}

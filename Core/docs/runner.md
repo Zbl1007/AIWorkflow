@@ -1,0 +1,77 @@
+# AIWorkflow Runner
+
+## 本文职责
+
+本文说明 `acceptance_runner.py` 的命令、状态和输出。它回答“如何验证 Current / Resolution / Iteration，如何生成 Run 产物”。
+
+## 权限边界
+
+本文只定义 runner 使用方式和执行结果，不定义目录架构、不定义数据模型字段、不定义 check / driver / mode 的职责。
+
+## 命令
+
+从宿主项目根目录执行：
+
+```powershell
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py validate-current
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py validate-resolution
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py validate-iteration
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py run --dry-run
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py run
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py run --template-smoke
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py latest
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py list-modes
+python <AIWorkflow路径>\Core\Acceptance\acceptance_runner.py list-checks
+```
+
+## 验证命令
+
+`validate-current` 验证 `Workspace/Current.json` 结构和路径。
+
+`validate-resolution` 验证当前 `Resolution.json`。
+
+`validate-iteration` 验证当前 Iteration 详情文件和验收配置结构。
+
+## Run 命令
+
+`run --dry-run` 只打印解析后的 checks 和 postChecks，不生成 Run 产物。
+
+`run` 生成正式验收记录，并写入当前 Issue 的 Run 目录。
+
+Runner 从当前 Iteration 的 `acceptance.modes` 读取一组 mode，并按数组顺序合并 checks 和 postChecks。
+
+Runner 会读取当前 Iteration 的 `acceptance.requiredEvidence`。正式 `run` 必须为每一种声明的证据类型找到至少一个对应 check；缺失时返回 `blocked`。
+
+`latest` 打印 `Workspace/LatestRun.md`。
+
+## 模板烟测
+
+`run --template-smoke` 只用于模板安装烟测。
+
+若 `Workspace/Current.json` 的 `source` 是 `TEMPLATE`，普通 `run` 会返回 `blocked`，避免把 `ExampleTopic / ExampleIssue` 的示例 Run 误当成真实任务验收。
+
+模板安装烟测只证明 AIWorkflow 安装可运行，不能替代真实任务验收。
+
+真实任务验收前，必须先创建或切换到正式 `Topic / Issue / Iteration`，并在当前 Iteration 中声明验收条件。
+
+## 输出
+
+正式 `run` 会生成：
+
+```text
+Workspace/Topics/<Topic>/Issues/<Issue>/Resolution/Runs/YYYY_MM_DD/rNNN/Result.json
+Workspace/Topics/<Topic>/Issues/<Issue>/Resolution/Runs/YYYY_MM_DD/rNNN/AcceptanceReport.md
+Workspace/Topics/<Topic>/Issues/<Issue>/Resolution/Runs/YYYY_MM_DD/rNNN/Run.log
+```
+
+`Workspace/LatestRun.md` 会记录最近一次 Run 的摘要和入口。
+
+当前 Iteration 详情会回写：
+
+```text
+- Status：pass / fail / blocked
+- 结果：pass / fail / blocked。
+- Run：rNNN。
+- Report：`Workspace/.../AcceptanceReport.md`。
+- Result：`Workspace/.../Result.json`。
+```
