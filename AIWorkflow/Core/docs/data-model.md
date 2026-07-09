@@ -168,7 +168,7 @@ Topic -> Issue -> Resolution -> Iteration -> Run
 
 这个示例不要求 UI 验收必须使用视频。视频属于最低等级的 UI 辅助能力，只作为人工复核材料，可以由 driver 录制并通过 `artifacts` 归档，但不进入机器验收流程。不要用“视频文件存在”或视频内容分析来覆盖 `browser` evidence。
 
-`browser` 证据还可以来自截图、trace、DOM / accessibility dump、窗口元数据、交互日志、网络日志或 driver result JSON。被 check 用作验收依据的产物应通过 `artifacts` 进入 Run 目录。
+browser evidence 的判定标准见 `Core/docs/check-driver-mode.md`。被 check 用作验收依据的产物应通过 `artifacts` 进入 Run 目录；artifact 存在性本身不等于 browser evidence。
 
 长期、可复用、会反复出现的验收能力必须进入非 `temp` mode；当前 Iteration 的一次性检查集合应进入 `temp.*` mode。mode 文件本身不引用其他 mode，组合关系只写在 `Resolution.json` 的 `acceptance.modes`。
 
